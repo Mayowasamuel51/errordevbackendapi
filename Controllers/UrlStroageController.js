@@ -8,6 +8,7 @@ const MyPortfolio = require('../Models/Portfolio')
 
 const creatUrlWebsite = async (req, res, next) => {
     // check the id exist or not 
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const { about, developername, websiteurl, user_id, webname } = req.body;
     try {
       
@@ -29,7 +30,8 @@ const creatUrlWebsite = async (req, res, next) => {
 }
 
 // get the infomation for the user
-const getdeveloperwebsiteurl = async (req, res,next) => {
+const getdeveloperwebsiteurl = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const checkuser  = await UrlStore.find({ developername: req.params.developername }).sort({$natural: -1 })
     if (!checkuser) {
         return next(new HttpError('this user is not found ', 404))
@@ -43,6 +45,7 @@ const portfolioController = async (req, res, next) => {
     // if (!checkuser) {
     //     return next(new HttpError('this user is not found ', 404))
     // }
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const { developername, portfollio } = req.body;
     try {
         const data = await MyPortfolio.create({
@@ -58,6 +61,7 @@ const portfolioController = async (req, res, next) => {
 }
 
 const getportfoilo = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const getportfoilos = await MyPortfolio.find().sort({ $natural: -1 });
     try {
         res.status(200).json({

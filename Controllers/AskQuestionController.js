@@ -58,6 +58,7 @@ exports.uploadsErrorFix = uploadsErrorFix.single('errorfixImage')
 
 //create a question for the user
 exports.createAskQuestion = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const valierrorMessage = validationResult(req)
     if (!valierrorMessage.isEmpty()) {
         console.log(valierrorMessage)
@@ -89,6 +90,7 @@ exports.createAskQuestion = async (req, res, next) => {
 
 //controller for error fix
 exports.errorfix = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const valierrorMessage = validationResult(req)
     if (!valierrorMessage.isEmpty()) {
         console.log(valierrorMessage)
@@ -115,6 +117,7 @@ exports.errorfix = async (req, res, next) => {
 }
 // get the infomation for the user
 exports.geterrorfix = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const checkuser = await MyStoreErrorFix.find({ developeremail: req.params.developeremail }).sort({$natural: -1 })
     if (!checkuser) {
         return next(new HttpError('this user is not found ', 404))
@@ -124,6 +127,7 @@ exports.geterrorfix = async (req, res, next) => {
 
 // get the veiw solutionn 
 exports.veiwsolution = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     try {
         const user = await MyStoreErrorFix.findById(req.params.id);
         if (!user) {
