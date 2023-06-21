@@ -11,10 +11,14 @@ const cors = require('cors')
 // Increase the limit to 50mb
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-
 const dotenv = require('dotenv')
 const dotenvb = require('dotenv').config()
-mongoose.connect(process.env.MONOGODB).then(() => {
+mongoose.connect(process.env.MONOGODB,
+    {
+    useNewUrlParser: true,
+    useUnifiedTopology:true
+    }
+).then(() => {
     console.log('database connected')
 }).catch((err) => console.log(err))
 
@@ -27,9 +31,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 //api routes 
 app.use('/api', askQuestionRoutes)
-
-
-
 
 // not route found error 
 app.use((req, res) => {

@@ -39,26 +39,41 @@ const getdeveloperwebsiteurl = async (req, res,next) => {
 
 /// portfolio controller;
 const portfolioController = async (req, res, next) => {
-    const checkuser = await MyPortfolio.findOne({ developername: req.params.developername });
-    if (!checkuser) {
-        return next(new HttpError('this user is not found ', 404))
-    }
-    const { developername, portfolio } = req.body;
+    // const checkuser = await MyPortfolio.findOne({ developername: req.params.developername });
+    // if (!checkuser) {
+    //     return next(new HttpError('this user is not found ', 404))
+    // }
+    const { developername, portfollio } = req.body;
     try {
         const data = await MyPortfolio.create({
             developername,
-            portfolio
+            portfollio
         })
         res.status(201).json({ dataMessage: 'question created', data })
-        console.log(data_url)
+        console.log(data)
     } catch (err) {
         res.status(404).json({ dataMessage: err.message })
         console.log(err.message)
     }
 }
 
+const getportfoilo = async (req, res, next) => {
+    const getportfoilos = await MyPortfolio.find().sort({ $natural: -1 });
+    try {
+        res.status(200).json({
+            data:getportfoilos
+        })
+        console.log(getportfoilos)
+    } catch (err) {
+        res.status(404).json({ dataMessage: err.message })
+        console.log(err.message)
+    }
+    
+}
+
 module.exports = {
     creatUrlWebsite,
     getdeveloperwebsiteurl,
-    portfolioController
+    portfolioController,
+    getportfoilo
 }

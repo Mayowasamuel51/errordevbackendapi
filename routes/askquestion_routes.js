@@ -20,8 +20,12 @@ router.post('/websiteurlinfo', UrlStroageController.creatUrlWebsite)
 
 
 //user info routes
-router.post('/users',UserController.user)
+router.post('/users', UserController.user)
 
+/// store portfollio
+router.post('/portfollio', UrlStroageController.portfolioController)
+/// get all portfolios
+router.get('/portfolios',UrlStroageController.getportfoilo)
 
 
 // store error fix
